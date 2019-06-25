@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+        <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+        <link href="/css/members.css" th:href="@{/css/members.css}" rel="stylesheet"></link>
+        <script src="/js/members.js" th:src="@{/js/members.js}"></script>
+        <script type="text/javascript" src="/js/jquery.confirm.js" th:src="@{/js/jquery.confirm.js}" charset="utf-8"></script>
+        <link rel="stylesheet" href="/css/jquery.confirm.css" th:href="@{/css/jquery.confirm.css}" type="text/css"/>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link type="text/css" href="/css/jquery.keypad.css" rel="stylesheet">
+        <title>>体重見える化_入力画面</title>
+    </head>
+    <body>
+        <form action="/EnterInputPath" method="POST">
+				<h1 th:text="${MS}"></h1>
+            <div>
+                年月日: <input type="text" name = inputday id="input1"/>
+            	    <table>
+					<tr th:each = "e:${inputdayErr}">
+					<td th:text = "${e}"></td>
+					</tr>
+					</table>
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+            <script>
+                $(function() {
+                    $.datepicker.setDefaults($.datepicker.regional["ja"]);
+                    $("#input1").datepicker();
+                    			});
+
+            </script>
+
+            <div>
+                体重: <input type="text" name = inputweight maxlength="4" id="weight"/>
+                    <table>
+					<tr th:each = "e:${inputweightErr}">
+					<td th:text = "${e}"></td>
+					</tr>
+					</table>
+            </div>
+            <script type="text/javascript" src="/js/jquery.plugin.js"></script>
+            <script type="text/javascript" src="/js/jquery.keypad.js"></script>
+            <script>
+            $("#weight").keypad({
+                layout: ['789', '456', '123', '.0' + $.keypad.BACK],
+                keypadOnly: false
+            }).keypad('option', 'backText', '.');
+            </script>
+
+
+
+            <!--Web認証に新規登録を行うために記述
+                <form></form>の内部に設定-->
+            <input type="submit" value="決定"/>
+            <input type="submit" value="戻る"/>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+        <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+        <link href="/css/members.css" th:href="@{/css/members.css}" rel="stylesheet"></link>
+        <script src="/js/members.js" th:src="@{/js/members.js}"></script>
+        <script type="text/javascript" src="/js/jquery.confirm.js" th:src="@{/js/jquery.confirm.js}" charset="utf-8"></script>
+        <link rel="stylesheet" href="/css/jquery.confirm.css" th:href="@{/css/jquery.confirm.css}" type="text/css"/>
+        <title>>体重見える化_新規登録</title>
+    </head>
+    <body>
+
+            <!--actionのところはPathを入力する-->
+            <div>新規登録</div>
+            <form name="新規登録" method="POST" action="/NewUserFirst">
+                <!--新規登録をWeb認証に指示するための記述-->
+                <div>
+                    ID<input type="text" name="newuid" size="40" maxlength="8" autocomplete="OFF"/>
+                    <table>
+					<tr th:each = "e:${newuiderr}">
+					<td th:text = "${e}"></td>
+					</tr>
+					</table>
+                </div>
+                <div><h1 th:text="${errm}"></h1></div>
+                <div>
+                    パスワード<input type="password" name="newpwd" size="40" maxlength="20" autocomplete="OFF"/>
+                     <table>
+					<tr th:each = "e:${newpwderr}">
+					<td th:text = "${e}"></td>
+					</tr>
+					</table>
+                </div>
+                <div>
+                    パスワード(確認)<input type="password" name="checknewpwd" size="40" maxlength="20" autocomplete="OFF"/>
+                    <table>
+					<tr th:each = "e:${checknewpwderr}">
+					<td th:text = "${e}"></td>
+					</tr>
+					</table>
+                </div>
+                <!--Web認証に新規登録を行うために記述
+                <form></form>の内部に設定-->
+                <input type="submit" value="ログイン"/>
+                <input type="submit" value="戻る"/>
+            </form>
+    </body>
+</html>

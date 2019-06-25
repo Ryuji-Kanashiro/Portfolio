@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="/css/monthly.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+
+
+
+	<style type="text/css">
+		body {
+			font-family: Calibri;
+			background-color: #f0f0f0;
+			padding: 0em 1em;
+		}
+		#mycalendar {
+			width: 100%;
+			margin: 2em auto 0 auto;
+			max-width: 80em;
+			border: 1px solid #666;
+		}
+	</style>
+        <title>体重見える化_ログアウト画面</title>
+    </head>
+    <body>
+        <h1>体重変化表</h1>
+            <div class="monthly" id="mycalendar"></div>
+            <script type="text/javascript" src="/js/jquery.js"></script>
+			<script type="text/javascript" src="/js/monthly.js"></script>
+			<script type="text/javascript">
+
+
+
+	$(window).on("load",function() {
+
+
+		//IDを取得して、定数に代入する
+		//この値をサーバー(Java)に渡して、SQLをたたく
+		var uid = $("#uid").val();
+		var weight;
+
+		$.ajax(
+                {
+                    url:'getWeight',
+                    type:'POST',
+                    async: true,
+                    dataType : "json",
+                    data: {
+                        uid: uid
+                    }
+                })
+                .then((...args) => { // done
+					const [data, textStatus, jqXHR] = args;
+               		alert(textStatus);
+               		alert(jqXHR.status);
+               		alert(data);
+               		weight = data;
+               		alert(JSON.stringify(data));
+
+
+            		$('#mycalendar').monthly({
+            			mode: 'event',
+            			dataType: 'json',
+            			events: data
+            		});
+                 });
+
+	});
+</script>
+
+                <div th:object="${eif1}">
+
+    			<input type="hidden" id="uid" th:field="*{uid}"><br>
+
+				</div>
+
+        <form action="/Logout" method="post">
+            <!--actionのところはPathを入力する-->
+            <div>ログアウト画面</div>
+
+                <!--ログアウト操作をWeb認証に指示するための記述-->
+                <input type="submit" value="ログアウト"/>
+                <!--Web認証にログアウト要求を行うために記述
+                <form></form>の内部に設定-->
+                <input type="submit" value="キャンセル"/>
+            </form>
+    </body>
+</html>

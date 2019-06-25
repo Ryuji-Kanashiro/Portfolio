@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+        <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+        <link href="/css/members.css" th:href="@{/css/members.css}" rel="stylesheet"></link>
+        <script src="/js/members.js" th:src="@{/js/members.js}"></script>
+        <script type="text/javascript" src="/js/jquery.confirm.js" th:src="@{/js/jquery.confirm.js}" charset="utf-8"></script>
+        <link rel="stylesheet" href="/css/jquery.confirm.css" th:href="@{/css/jquery.confirm.css}" type="text/css"/>
+        <title>体重見える化_ログイン画面</title>
+    </head>
+    <body>
+            <div>ログイン入力画面</div>
+            <form name="ログイン" method="POST" action="/LoginAfterPath">
+                <!--ログイン操作をWeb認証に指示するための記述-->
+                <div>
+                    ID<input type="text" name="uid" size="40" maxlength="8" autocomplete="OFF"/>
+                    <table>
+					<tr th:each = "e:${uiderr}">
+					<td th:text = "${e}"></td>
+					</tr>
+					</table>
+                </div>
+                <div>
+                    パスワード<input type="password" name="pwd" size="40" maxlength="20" autocomplete="OFF"/>
+                    <table>
+					<tr th:each = "f:${pwderr}">
+					<td th:text = "${f}"></td>
+					</tr>
+					</table>
+                </div>
+                <!--Web認証にログイン要求を行うために記述
+                <form></form>の内部に設定-->
+                <input type="submit" value="ログイン"/>
+                <input type="submit" value="キャンセル"/>
+            </form>
+    </body>
+</html>
