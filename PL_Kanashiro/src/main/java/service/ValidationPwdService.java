@@ -28,6 +28,6 @@ public class ValidationPwdService {
 		}
 		List<String>List_pwdErr = Arrays.asList(data);
 		model.addAttribute("pwderr",List_pwdErr);
-		//test
+///
 	}
 }
